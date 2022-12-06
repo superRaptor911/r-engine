@@ -1,18 +1,6 @@
 import * as THREE from 'three';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-// const textures = {
-//   crate: 'crate.png',
-// };
-
-// const models = {
-//   cube: 'cube.gltf',
-// };
-
-// const sounds = {
-//   music: 'theTrain.ogg',
-// };
-
 interface BasicResource {
   name: string;
   path: string;
