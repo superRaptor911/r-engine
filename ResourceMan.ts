@@ -1,27 +1,34 @@
 import * as THREE from 'three';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-const textures = {
-  crate: 'crate.png',
-};
+// const textures = {
+//   crate: 'crate.png',
+// };
 
-const models = {
-  cube: 'cube.gltf',
-};
+// const models = {
+//   cube: 'cube.gltf',
+// };
 
-const sounds = {
-  music: 'theTrain.ogg',
-};
+// const sounds = {
+//   music: 'theTrain.ogg',
+// };
+
+interface BasicResource {
+  name: string;
+  path: string;
+}
 
 const textureMap = {};
 const modelMap = {};
 const soundMap = {};
 
-export const loadTextures = async (): Promise<void> => {
+export const loadTextures = async (
+  textures: BasicResource[],
+): Promise<void> => {
   const loader = new THREE.TextureLoader();
 
   try {
-    for (const [name, path] of Object.entries(textures)) {
+    for (const { name, path } of textures) {
       textureMap[name] = await loader.loadAsync(
         'build/assets/textures/' + path,
       );
@@ -39,10 +46,10 @@ export const getTexture = (name: string): THREE.Texture | null => {
   return textureMap[name];
 };
 
-export const loadModels = async (): Promise<void> => {
+export const loadModels = async (models: BasicResource[]): Promise<void> => {
   const loader = new GLTFLoader();
   try {
-    for (const [name, path] of Object.entries(models)) {
+    for (const { name, path } of models) {
       modelMap[name] = await loader.loadAsync('build/assets/models/' + path);
     }
   } catch (e) {
@@ -59,10 +66,10 @@ export const getModel = (name: string): GLTF | null => {
   return modelMap[name];
 };
 
-export const loadSounds = async (): Promise<void> => {
+export const loadSounds = async (sounds: BasicResource[]): Promise<void> => {
   try {
     const loader = new THREE.AudioLoader();
-    for (const [name, path] of Object.entries(sounds)) {
+    for (const { name, path } of sounds) {
       soundMap[name] = await loader.loadAsync('build/assets/sounds/' + path);
     }
   } catch (e) {
